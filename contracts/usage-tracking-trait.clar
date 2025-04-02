@@ -1,30 +1,33 @@
+;; Usage Tracking Trait
+;; Defines the interface for the Usage Tracking contract
 
-;; title: usage-tracking-trait
-;; version:
-;; summary:
-;; description:
+(define-trait usage-tracking-trait
+  (
+    ;; Get usage record
+    (get-usage-record (uint) (response (optional {
+      license-id: uint,
+      licensee: principal,
+      usage-type: (string-utf8 64),
+      usage-amount: uint,
+      timestamp: uint,
+      verified: bool
+    }) uint))
 
-;; traits
-;;
+    ;; Get license usage records
+    (get-license-usage-records (uint) (response {
+      usage-ids: (list 1000 uint)
+    } uint))
 
-;; token definitions
-;;
+    ;; Get licensee usage records
+    (get-licensee-usage-records (principal) (response {
+      usage-ids: (list 1000 uint)
+    } uint))
 
-;; constants
-;;
+    ;; Record usage
+    (record-usage (principal uint (string-utf8 64) uint) (response uint uint))
 
-;; data vars
-;;
-
-;; data maps
-;;
-
-;; public functions
-;;
-
-;; read only functions
-;;
-
-;; private functions
-;;
+    ;; Verify usage
+    (verify-usage (uint principal) (response bool uint))
+  )
+)
 
