@@ -1,30 +1,41 @@
+;; License Terms Trait
+;; Defines the interface for the License Terms contract
 
-;; title: license-terms-trait
-;; version:
-;; summary:
-;; description:
+(define-trait license-terms-trait
+  (
+    ;; Get license information
+    (get-license (uint) (response (optional {
+      ip-id: uint,
+      licensor: principal,
+      license-type: (string-utf8 64),
+      usage-rights: (string-utf8 1024),
+      royalty-percentage: uint,
+      duration: uint,
+      created-at: uint,
+      active: bool
+    }) uint))
 
-;; traits
-;;
+    ;; Get IP licenses
+    (get-ip-licenses (uint) (response {
+      license-ids: (list 100 uint)
+    } uint))
 
-;; token definitions
-;;
+    ;; Get licensee agreement
+    (get-licensee-agreement (principal uint) (response (optional {
+      accepted: bool,
+      accepted-at: uint,
+      expires-at: uint,
+      active: bool
+    }) uint))
 
-;; constants
-;;
+    ;; Create license
+    (create-license (principal uint (string-utf8 64) (string-utf8 1024) uint uint) (response uint uint))
 
-;; data vars
-;;
+    ;; Accept license
+    (accept-license (uint) (response bool uint))
 
-;; data maps
-;;
-
-;; public functions
-;;
-
-;; read only functions
-;;
-
-;; private functions
-;;
+    ;; Deactivate license
+    (deactivate-license (uint) (response bool uint))
+  )
+)
 
